@@ -16,6 +16,7 @@ authors = [
 ]
 dependencies = [
     "tonal",
+    "pandas",
 ]
 
 [project.license]
