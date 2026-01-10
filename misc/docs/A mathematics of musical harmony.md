@@ -122,3 +122,6 @@ Focusing on cardinalities 3-9 and applying T/I equivalence yields **208 distinct
 This system provides powerful tools for analyzing how composers use harmony, especially in post-tonal music where traditional functional harmony may not apply. We can track which set classes appear, how they're transformed (by transposition or inversion), how they relate to each other through common subsets or complements—all while focusing on the perceptually salient features: the intervallic structures that give each sonority its distinctive sound and character.
 
 The beauty of this approach is that it honors the perceptual reality of how we hear music (recognizing transpositions as "the same," hearing intervallic patterns as fundamental units) while providing rigorous mathematical tools to study the combinatorial structures underlying harmonic choices. We've moved from the infinite continuum of all possible sounds to a finite catalog of about 200 essential harmonic shapes—the fundamental vocabulary that underlies the vast diversity of chromatic musical expression.
+
+
+<img width="2752" height="1536" alt="deconstructing harmony - from infinite sounds to finite sets" src="https://github.com/user-attachments/assets/13f4194b-6663-4b33-bcbc-6d14af728175" />
