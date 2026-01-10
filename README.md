@@ -2,7 +2,6 @@
 
 Tools for mathematical analysis of 12‑tone musical structures.
 
-
 ## 1) Context and goals
 
 This package focuses on **pitch‑class set theory** (Forte-style set classes and
@@ -31,6 +30,8 @@ easy to *analyze as data*.
 
 
 ## 2) Data in `misc/tables`
+
+<img width="2784" height="1536" alt="Mathematical Analysis tools for 12-tone musical structures" src="https://github.com/user-attachments/assets/e6c82388-d402-4f19-9add-4bdd54e9f544" />
 
 The folder `misc/tables/` contains precomputed tables (Parquet format) that
 represent:
