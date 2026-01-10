@@ -1,0 +1,6 @@
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   module_docs/atonal/base
+   module_docs/atonal/tests/test_chordspace

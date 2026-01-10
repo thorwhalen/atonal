@@ -1,0 +1,973 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>atonal.base &mdash; atonal 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="atonal.tests.test_chordspace" href="tests/test_chordspace.html" />
+    <link rel="prev" title="Welcome to atonal’s documentation!" href="../../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            atonal
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">atonal.base</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#conventions">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#differences-from-pctheory">Differences from pctheory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.all_pc_combinations"><code class="docutils literal notranslate"><span class="pre">all_pc_combinations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.best_normal_order"><code class="docutils literal notranslate"><span class="pre">best_normal_order()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.build_complement_links_df"><code class="docutils literal notranslate"><span class="pre">build_complement_links_df()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.build_graph"><code class="docutils literal notranslate"><span class="pre">build_graph()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.build_immediate_subset_links_df"><code class="docutils literal notranslate"><span class="pre">build_immediate_subset_links_df()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.build_k_kh_links_df"><code class="docutils literal notranslate"><span class="pre">build_k_kh_links_df()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.build_pcset_nodes_df"><code class="docutils literal notranslate"><span class="pre">build_pcset_nodes_df()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.build_rp_similarity_links_df"><code class="docutils literal notranslate"><span class="pre">build_rp_similarity_links_df()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.build_ti_equivalence_links_df"><code class="docutils literal notranslate"><span class="pre">build_ti_equivalence_links_df()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.build_z_relation_links_df"><code class="docutils literal notranslate"><span class="pre">build_z_relation_links_df()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.chord_table"><code class="docutils literal notranslate"><span class="pre">chord_table()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.combinatorial_property_hexachord"><code class="docutils literal notranslate"><span class="pre">combinatorial_property_hexachord()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.compute_links"><code class="docutils literal notranslate"><span class="pre">compute_links()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.contains_abstract_subset"><code class="docutils literal notranslate"><span class="pre">contains_abstract_subset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.distinct_inversions"><code class="docutils literal notranslate"><span class="pre">distinct_inversions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.distinct_transpositions"><code class="docutils literal notranslate"><span class="pre">distinct_transpositions()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.expand_with_duplicates"><code class="docutils literal notranslate"><span class="pre">expand_with_duplicates()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.forte_name"><code class="docutils literal notranslate"><span class="pre">forte_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.generate_default_voicing_space"><code class="docutils literal notranslate"><span class="pre">generate_default_voicing_space()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.generate_graph_default"><code class="docutils literal notranslate"><span class="pre">generate_graph_default()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.get_k_complex_size"><code class="docutils literal notranslate"><span class="pre">get_k_complex_size()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.int_to_pcset"><code class="docutils literal notranslate"><span class="pre">int_to_pcset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.interval_stack_voicings"><code class="docutils literal notranslate"><span class="pre">interval_stack_voicings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.interval_vector"><code class="docutils literal notranslate"><span class="pre">interval_vector()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.invert"><code class="docutils literal notranslate"><span class="pre">invert()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.is_codiatonic"><code class="docutils literal notranslate"><span class="pre">is_codiatonic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.is_subset_pcs"><code class="docutils literal notranslate"><span class="pre">is_subset_pcs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.is_transpositionally_symmetric"><code class="docutils literal notranslate"><span class="pre">is_transpositionally_symmetric()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.kh_complex_size"><code class="docutils literal notranslate"><span class="pre">kh_complex_size()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.max_invariance_degrees"><code class="docutils literal notranslate"><span class="pre">max_invariance_degrees()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.multiply"><code class="docutils literal notranslate"><span class="pre">multiply()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.pc_combinations"><code class="docutils literal notranslate"><span class="pre">pc_combinations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.pc_set_convert"><code class="docutils literal notranslate"><span class="pre">pc_set_convert()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.pcset_node_row"><code class="docutils literal notranslate"><span class="pre">pcset_node_row()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.pcset_to_int"><code class="docutils literal notranslate"><span class="pre">pcset_to_int()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.prime_form"><code class="docutils literal notranslate"><span class="pre">prime_form()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.shared_pcs"><code class="docutils literal notranslate"><span class="pre">shared_pcs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.transitive_reduction_links"><code class="docutils literal notranslate"><span class="pre">transitive_reduction_links()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.transpose"><code class="docutils literal notranslate"><span class="pre">transpose()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.validate_prime_forms"><code class="docutils literal notranslate"><span class="pre">validate_prime_forms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.voice_leading_distance"><code class="docutils literal notranslate"><span class="pre">voice_leading_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atonal.base.z_correspondent_prime_form"><code class="docutils literal notranslate"><span class="pre">z_correspondent_prime_form()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests/test_chordspace.html">atonal.tests.test_chordspace</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">atonal</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">atonal.base</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/atonal/base.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-atonal.base">
+<span id="atonal-base"></span><h1>atonal.base<a class="headerlink" href="#module-atonal.base" title="Link to this heading"></a></h1>
+<p>base.py</p>
+<p>A comprehensive module for pitch-class set theory and chord voicing analysis.</p>
+<p>This module provides two main functionalities:</p>
+<ol class="arabic">
+<li><p><strong>Forte-Style Pitch-Class Set Theory</strong> (Section 0)
+- Complete enumeration and analysis of all 4,096 subsets of the 12 pitch classes
+- Implementation of Allen Forte’s analytical framework from “The Structure of</p>
+<blockquote>
+<div><p>Atonal Music” (1973)</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Computation of prime forms, interval vectors, Z-relations, invariance properties,
+and more</p></li>
+<li><p>See <cite>tonal/misc/forte_sets.md</cite> for comprehensive field documentation</p></li>
+</ul>
+</li>
+<li><p><strong>Chord Voicing Generation and Graph Construction</strong> (Sections 1-4)
+- Enumeration of chord voicings in bounded pitch ranges
+- Graph construction based on voice-leading, shared pitch classes, and subset</p>
+<blockquote>
+<div><p>relations</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Flexible link types for different analytical purposes</p></li>
+</ul>
+</li>
+</ol>
+<section id="conventions">
+<h2>Conventions<a class="headerlink" href="#conventions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Pitch classes are 0..11 (0 = C, 1 = C#, …, 11 = B)</p></li>
+<li><p>Pitches (not just pitch classes) are integers too: 60 = C4, etc., but here we
+mostly use small integers as semitone offsets from a root</p></li>
+<li><p>A “pc-set” is a frozenset of pitch classes</p></li>
+<li><p>A “voicing” is a tuple of <em>pitches</em> (ordered), e.g. (0, 4, 7), (0, 7, 12)</p></li>
+<li><p>A “chord node” in the graph is usually an int-indexed entry referring to a
+voicing or a pc-set</p></li>
+</ul>
+</section>
+<section id="differences-from-pctheory">
+<h2>Differences from pctheory<a class="headerlink" href="#differences-from-pctheory" title="Link to this heading"></a></h2>
+<p>This implementation differs from the <cite>pctheory</cite> library in several ways:</p>
+<ol class="arabic simple">
+<li><p><strong>Prime form algorithm</strong>: Uses lexicographic normal order vs pctheory’s
+“weight from right” approach. Results match for 99%+ of sets but may differ
+for edge cases. Use <cite>validate_prime_forms()</cite> to check.</p></li>
+<li><p><strong>Scope</strong>: Focuses on mod-12 chromatic sets. pctheory supports arbitrary
+moduli (e.g., mod-24 for quarter-tones).</p></li>
+<li><p><strong>Data structures</strong>: Returns frozensets/tuples vs pctheory’s PitchClass objects.</p></li>
+<li><p><strong>Output format</strong>: Builds pandas DataFrames for graph analysis vs pctheory’s
+object-oriented SetClass API.</p></li>
+<li><p><strong>Additional features</strong>: This module includes:
+- <cite>multiply()</cite> for M_n transformations
+- <cite>contains_abstract_subset()</cite> for abstract inclusion checking
+- <cite>get_k_complex_size()</cite> for K complex calculations (non-reciprocal version)
+- Comprehensive DataFrame builders for network analysis</p></li>
+<li><p><strong>Missing features</strong>: Compared to pctheory, this module does not include:
+- Carter and Morris naming systems
+- Ordered operations (retrograde, rotate) for pc-segments
+- Microtonal support (mod 24+)
+- Full invariance vectors (8-element format)</p></li>
+</ol>
+</section>
+<section id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Link to this heading"></a></h2>
+<dl>
+<dt>Run validation tests with:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">atonal.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_prime_forms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validate_prime_forms</span><span class="p">()</span>  
+<span class="go">✓ All prime forms match Forte canonical forms!</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Forte, Allen. “The Structure of Atonal Music.” Yale University Press, 1973.
+<a class="reference external" href="https://www.amazon.com/Structure-Atonal-Music-Allen-Forte/dp/0300021208">https://www.amazon.com/Structure-Atonal-Music-Allen-Forte/dp/0300021208</a></p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.all_pc_combinations">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">all_pc_combinations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sizes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(3,</span> <span class="pre">4,</span> <span class="pre">5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9,</span> <span class="pre">10,</span> <span class="pre">11)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">FrozenSet</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#all_pc_combinations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.all_pc_combinations" title="Link to this definition"></a></dt>
+<dd><p>Enumerate all pitch-class combinations for the given sizes.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">combos</span> <span class="o">=</span> <span class="n">all_pc_combinations</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">combos</span><span class="p">)</span>  <span class="c1"># 220 + 495 = 715</span>
+<span class="go">715</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">})</span> <span class="ow">in</span> <span class="n">combos</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.best_normal_order">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">best_normal_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#best_normal_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.best_normal_order" title="Link to this definition"></a></dt>
+<dd><p>Return the best normal order (Forte’s packed rotation).</p>
+<p>This is the <em>pre-prime</em> ordering: a circular permutation of the pcs in
+ascending registral order, chosen to be most compact.</p>
+<p>Field utility (dataset): “Best Normal Order” provides the canonical
+<em>template ordering</em> before transposition-to-0, useful for identifying sets
+encountered in music.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">best_normal_order</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">(0, 4, 7)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">best_normal_order</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># one valid compact ordering</span>
+<span class="go">(8, 11, 0, 3)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.build_complement_links_df">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">build_complement_links_df</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#build_complement_links_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.build_complement_links_df" title="Link to this definition"></a></dt>
+<dd><p>Links between each set and its complement (half the pairs, undirected).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.build_graph">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">build_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voicings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_shared_pcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_vl_distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_subset_edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#build_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.build_graph" title="Link to this definition"></a></dt>
+<dd><p>Build an adjacency list over voicings using several criteria.</p>
+<dl class="simple">
+<dt>A directed edge i -&gt; j is created if ANY of the following are true:</dt><dd><ul class="simple">
+<li><p>shared PCs &gt;= min_shared_pcs</p></li>
+<li><p>voice-leading distance &lt;= max_vl_distance (if given)</p></li>
+<li><p>i is pc-subset of j (if include_subset_edges)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>voicings</strong> – list of voicings (each is a tuple of ints)</p></li>
+<li><p><strong>min_shared_pcs</strong> – minimum shared pitch classes to create an edge</p></li>
+<li><p><strong>max_vl_distance</strong> – max voice-leading distance, or None to ignore</p></li>
+<li><p><strong>include_subset_edges</strong> – whether to link subset -&gt; superset</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[node_index, List[node_index]]</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">V</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">min_shared_pcs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">[1, 2]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.build_immediate_subset_links_df">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">build_immediate_subset_links_df</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#build_immediate_subset_links_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.build_immediate_subset_links_df" title="Link to this definition"></a></dt>
+<dd><p>Hasse-diagram edges: A -&gt; A ∪ {pc} for every missing pc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.build_k_kh_links_df">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">build_k_kh_links_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kh_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#build_k_kh_links_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.build_k_kh_links_df" title="Link to this definition"></a></dt>
+<dd><p>Build K or Kh complex links.</p>
+<p>For K: at least one inclusion relation holds among (A⊂B, A⊂B’, B⊂A, B⊂A’)
+For Kh: all four must hold (very restrictive)</p>
+<p>Reference: Forte Part 2, §2.2–2.3 (“The subcomplex Kh”, “Set-Complex sizes”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes_df</strong> – The nodes dataframe</p></li>
+<li><p><strong>kh_only</strong> – If True, only return Kh links (all 4 conditions met)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>source, target, inclusion_mask</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame with columns</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># This is expensive, so skipping doctest</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.build_pcset_nodes_df">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">build_pcset_nodes_df</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#build_pcset_nodes_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.build_pcset_nodes_df" title="Link to this definition"></a></dt>
+<dd><p>Build nodes_df for all 4096 pc-sets with Forte-style fields.</p>
+<p>Returns a pandas DataFrame when pandas is installed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.build_rp_similarity_links_df">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">build_rp_similarity_links_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cardinality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#build_rp_similarity_links_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.build_rp_similarity_links_df" title="Link to this definition"></a></dt>
+<dd><p>Build R_p similarity links for sets of a given cardinality.</p>
+<p>Two sets are R_p similar if they share n-1 pitch classes under some T_n or I T_n.</p>
+<p>Reference: Forte Part 2, §2.4 (“Similarity relations”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes_df</strong> – The nodes dataframe</p></li>
+<li><p><strong>cardinality</strong> – Optional cardinality to filter to (if None, process all)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>source, target, max_common</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame with columns</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># This is expensive, so skipping doctest</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.build_ti_equivalence_links_df">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">build_ti_equivalence_links_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#build_ti_equivalence_links_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.build_ti_equivalence_links_df" title="Link to this definition"></a></dt>
+<dd><p>Links between all nodes in the same T/I set class (same prime form).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.build_z_relation_links_df">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">build_z_relation_links_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#build_z_relation_links_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.build_z_relation_links_df" title="Link to this definition"></a></dt>
+<dd><p>Links for Z-related pairs (same IV, different prime form).</p>
+<p>Adds columns: interval_vector, prime_form_a, prime_form_b.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.chord_table">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">chord_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voicings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'id_'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'int'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link_kinds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_pandas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warning_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">link_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/atonal/base.html#chord_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.chord_table" title="Link to this definition"></a></dt>
+<dd><p>Build a chord table with one row per chord.</p>
+<p>By default, generates the default voicing space from atonal.base.
+Each row describes the chord’s internal features: voicing, number of notes,
+span, pitch-class set, and interval vector.</p>
+<p>If <cite>include_links</cite> is True, link columns are added listing linked chord IDs
+according to the specified link kinds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>voicings</strong> – list of chord tuples (if None, use generate_default_voicing_space()).</p></li>
+<li><p><strong>id_col</strong> – name of the unique ID column.</p></li>
+<li><p><strong>index_by</strong> – how to compute chord IDs (“int”, “hash”, or “repr”).</p></li>
+<li><p><strong>include_links</strong> – whether to add link columns.</p></li>
+<li><p><strong>link_kinds</strong> – types of links to compute if include_links is True
+(e.g., [“shared”, “subset”, “voiceleading”]).</p></li>
+<li><p><strong>use_pandas</strong> – return DataFrame if True, otherwise yield dicts.</p></li>
+<li><p><strong>warning_threshold</strong> – threshold for warning about large computations.</p></li>
+<li><p><strong>**link_kwargs</strong> – passed to compute_links for each link kind.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>pandas.DataFrame if use_pandas else generator of dicts</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chord_table</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">voicings</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">use_pandas</span><span class="o">=</span><span class="kc">False</span>
+<span class="gp">... </span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;n_notes&#39;</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;span&#39;</span><span class="p">]</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.combinatorial_property_hexachord">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">combinatorial_property_hexachord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#combinatorial_property_hexachord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.combinatorial_property_hexachord" title="Link to this definition"></a></dt>
+<dd><p>Combinatorial property label for hexachords (cardinality 6).</p>
+<p>Theoretical utility (Forte Part 1 §1.14): flags hexachords that can form a
+12-tone aggregate with one of their own T_n or I T_n transforms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>both T and I combinatorial
+- ‘p’ (prime combinatorial): T combinatorial only
+- ‘i’ (inversion combinatorial): I combinatorial only
+- None: not combinatorial or not a hexachord</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>‘a’ (all-combinatorial)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.compute_links">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">compute_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chord_table</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'id_'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'shared'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_shared_pcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_vl_distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">universe_pcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9,</span> <span class="pre">10,</span> <span class="pre">11)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce_transitive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warning_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#compute_links"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.compute_links" title="Link to this definition"></a></dt>
+<dd><p>Compute links between chords based on chosen criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chord_table</strong> – list of dicts or DataFrame describing chords.</p></li>
+<li><p><strong>id_col</strong> – name of chord ID column.</p></li>
+<li><p><strong>kind</strong> – <p>link definition - either a string or callable:
+String options:
+- “shared”: share &gt;= min_shared_pcs pitch classes
+- “subset”: subset relation in pitch-class space
+- “voiceleading”: voice-leading distance &lt;= max_vl_distance
+- “codiatonic”: both chords fit in same major scale</p>
+<dl class="simple">
+<dt>Callable: custom function with signature:</dt><dd><p>(i: int, j: int, voicings: List, pc_sets: List, <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs) -&gt; bool
+where i, j are chord indices, voicings is list of tuples,
+pc_sets is list of pitch-class sets, and kwargs includes
+min_shared_pcs and max_vl_distance</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>min_shared_pcs</strong> – threshold for ‘shared’ links</p></li>
+<li><p><strong>max_vl_distance</strong> – max distance for ‘voiceleading’ links</p></li>
+<li><p><strong>warning_threshold</strong> – threshold for warning about large computations</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of lists of chord IDs (parallel to input rows)</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;id_&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;voicing&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="s1">&#39;pitch_classes&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">]},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;id_&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;voicing&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="s1">&#39;pitch_classes&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;id_&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;voicing&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="s1">&#39;pitch_classes&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">]},</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">links</span> <span class="o">=</span> <span class="n">compute_links</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;shared&quot;</span><span class="p">,</span> <span class="n">min_shared_pcs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">links</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">1</span>  <span class="c1"># first chord should link to others</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.contains_abstract_subset">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">contains_abstract_subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">superset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#contains_abstract_subset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.contains_abstract_subset" title="Link to this definition"></a></dt>
+<dd><p>Check if subset is contained in superset under some T_n or IT_n.</p>
+<p>This checks whether the subset can be found within the superset under any
+transposition or inversion-transposition operation. More sophisticated than
+simple subset checking.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">contains_abstract_subset</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># minor 3rd in major triad</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">contains_abstract_subset</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># major 2nd NOT in major triad</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">contains_abstract_subset</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>  <span class="c1"># major triad in major scale</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.distinct_inversions">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">distinct_inversions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#distinct_inversions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.distinct_inversions" title="Link to this definition"></a></dt>
+<dd><p>Number of distinct inversions n(I) in the IT-orbit.</p>
+<p>Theoretical utility (Forte Part 1 §1.12): sets that are replicas of their
+own inversion (up to transposition) reduce the total number of distinct
+forms.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">distinct_inversions</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">12</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.distinct_transpositions">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">distinct_transpositions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#distinct_transpositions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.distinct_transpositions" title="Link to this definition"></a></dt>
+<dd><p>Number of distinct transpositions n(T) in the T-orbit.</p>
+<p>Theoretical utility (Forte Part 1 §1.11): symmetric sets yield fewer than 12
+distinct transpositions.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">distinct_transpositions</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">distinct_transpositions</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.expand_with_duplicates">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">expand_with_duplicates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_voicing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_duplicates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">24)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#expand_with_duplicates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.expand_with_duplicates" title="Link to this definition"></a></dt>
+<dd><p>Given a voicing like (0, 4, 7), add (at most) <cite>max_duplicates</cite> extra notes
+that duplicate existing pitch classes in nearby octaves.</p>
+<p>This models the real-life situation where pianists double the root or the
+fifth.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_voicing</strong> – base tuple of pitches (sorted, ascending).</p></li>
+<li><p><strong>max_duplicates</strong> – how many extra notes to add at most.</p></li>
+<li><p><strong>within</strong> – (lo, hi) absolute pitch bounds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of voicings, including the original one.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expand_with_duplicates</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">max_duplicates</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="go">[(0, 4, 7), (0, 4, 7, 12)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.forte_name">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">forte_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#forte_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.forte_name" title="Link to this definition"></a></dt>
+<dd><p>Return the Forte label for a pc-set, when the Forte class is defined.</p>
+<p class="rubric">Notes</p>
+<p>This module currently stores canonical Forte labels for cardinalities 3..6.
+For cardinalities 7..9, the Forte label is derived from the complement’s
+class label (same suffix), e.g. 7-35 complements 5-35.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">forte_name</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">&#39;3-11&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">forte_name</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<span class="go">&#39;7-35&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.generate_default_voicing_space">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">generate_default_voicing_space</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#generate_default_voicing_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.generate_default_voicing_space" title="Link to this definition"></a></dt>
+<dd><p>Generate a reasonably rich but still small voicing space:</p>
+<ul class="simple">
+<li><p>root = 0 (C)</p></li>
+<li><p>range = 24 semitones (two octaves)</p></li>
+<li><p>allowed intervals = 2, 3, 4, 5, 7</p></li>
+<li><p>3 to 5 notes</p></li>
+<li><p>plus optional duplications</p></li>
+</ul>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">V</span> <span class="o">=</span> <span class="n">generate_default_voicing_space</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">50</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.generate_graph_default">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">generate_graph_default</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#generate_graph_default"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.generate_graph_default" title="Link to this definition"></a></dt>
+<dd><p>Convenience: generate a default voicing space and link it.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">generate_graph_default</span><span class="p">()</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">50</span>  
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.get_k_complex_size">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">get_k_complex_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#get_k_complex_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.get_k_complex_size" title="Link to this definition"></a></dt>
+<dd><p>Size of the K complex (includes sets related by abstract inclusion).</p>
+<p>The K complex is the set of all pitch-class sets that are related to the
+given set by abstract inclusion (subset/superset relations under T/I).
+This differs from Kh which requires reciprocal complement relations.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_k_complex_size</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>  
+<span class="go">100</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.int_to_pcset">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">int_to_pcset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#int_to_pcset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.int_to_pcset" title="Link to this definition"></a></dt>
+<dd><p>Public alias for bitmap -&gt; tuple.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">int_to_pcset</span><span class="p">(</span><span class="mi">145</span><span class="p">)</span>
+<span class="go">(0, 4, 7)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.interval_stack_voicings">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">interval_stack_voicings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_semitones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">24</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_intervals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9,</span> <span class="pre">12)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_notes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_notes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#interval_stack_voicings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.interval_stack_voicings" title="Link to this definition"></a></dt>
+<dd><p>Enumerate voicings by <em>stacking intervals</em> above a root, staying within
+<cite>max_semitones</cite>.</p>
+<dl class="simple">
+<dt>The algorithm:</dt><dd><ul class="simple">
+<li><p>start with [root]</p></li>
+<li><p>at each step add one of allowed_intervals to the <em>last</em> pitch</p></li>
+<li><p>stop when adding any allowed interval would go past max_semitones</p></li>
+<li><p>keep sequences whose length is between min_notes and max_notes</p></li>
+</ul>
+</dd>
+</dl>
+<p>This is <em>exactly</em> the “fixed root, bounded range, interval stacking”
+approach you described.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> – base pitch (0 means ‘C’ abstractly).</p></li>
+<li><p><strong>max_semitones</strong> – highest allowed pitch = root + max_semitones.</p></li>
+<li><p><strong>allowed_intervals</strong> – intervals (in semitones) you can stack.</p></li>
+<li><p><strong>max_notes</strong> – maximum size of the voicing.</p></li>
+<li><p><strong>min_notes</strong> – minimum size of the voicing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of tuples, each a voicing like (0, 4, 7) or (0, 5, 9, 12).</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">interval_stack_voicings</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">max_semitones</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">allowed_intervals</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">max_notes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">min_notes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="ow">in</span> <span class="n">v</span> <span class="ow">or</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="ow">in</span> <span class="n">v</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.interval_vector">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">interval_vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#interval_vector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.interval_vector" title="Link to this definition"></a></dt>
+<dd><p>Compute the interval vector (ic1..ic6) for a pc-set.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_vector</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">(0, 0, 1, 1, 1, 0)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.invert">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FrozenSet</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#invert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.invert" title="Link to this definition"></a></dt>
+<dd><p>Invert a pc-set about 0 (map p -&gt; -p mod 12).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">invert</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span> <span class="o">==</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.is_codiatonic">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">is_codiatonic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_quality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">2,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">7,</span> <span class="pre">9,</span> <span class="pre">11)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tonic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#is_codiatonic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.is_codiatonic" title="Link to this definition"></a></dt>
+<dd><p>Return True if the union of the pitch classes of chords <cite>a</cite> and <cite>b</cite>
+can be embedded in a single scale derived from the given <cite>scale_quality</cite>.</p>
+<p>If <cite>tonic</cite> is provided (0–11), only test that transposition of the scale;
+otherwise, test all 12 possible transpositions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – chord as a tuple of pitches (any integers)</p></li>
+<li><p><strong>b</strong> – chord as a tuple of pitches (any integers)</p></li>
+<li><p><strong>scale_quality</strong> – sequence of pitch-class intervals for the scale (default: major)</p></li>
+<li><p><strong>tonic</strong> – if not None, only use this tonic (0-11), else try all 12 transpositions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if union of a and b’s pitch classes is a subset of any transposition of the scale.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_codiatonic</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>  <span class="c1"># e.g. C major triad + D minor triad, both in C major</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_codiatonic</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># No two major triads a semitone apart in major scales...</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_codiatonic</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">scale_quality</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span>  <span class="c1"># ... but in a harmonic minor, there are</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_codiatonic</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">tonic</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Only test C major scale</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_codiatonic</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">tonic</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Only test C# major scale</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_codiatonic</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">tonic</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># C major scale, C and Dm triads</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.is_subset_pcs">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">is_subset_pcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#is_subset_pcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.is_subset_pcs" title="Link to this definition"></a></dt>
+<dd><p>True if pc(a) is subset of pc(b).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_subset_pcs</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_subset_pcs</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.is_transpositionally_symmetric">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">is_transpositionally_symmetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#is_transpositionally_symmetric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.is_transpositionally_symmetric" title="Link to this definition"></a></dt>
+<dd><p>True if the set is invariant under some non-zero transposition.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_transpositionally_symmetric</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_transpositionally_symmetric</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.kh_complex_size">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">kh_complex_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nexus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">universe_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4095</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#kh_complex_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.kh_complex_size" title="Link to this definition"></a></dt>
+<dd><p>Compute Kh-complex size for a nexus set (bitmap int).</p>
+<p>Uses the operational definition from Forte Part 2 (§2.2–2.3) as summarized
+in the notebook request:</p>
+<dl class="simple">
+<dt>A set S is in Kh(T) iff:</dt><dd><p>(S ⊆ T or T ⊆ S) AND (S ⊆ T’ or T’ ⊆ S)</p>
+</dd>
+</dl>
+<p>where T’ is the complement of T.</p>
+<p>Returns the count of S in the 12-tone universe satisfying the condition.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.max_invariance_degrees">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">max_invariance_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#max_invariance_degrees"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.max_invariance_degrees" title="Link to this definition"></a></dt>
+<dd><p>Maximum invariants under transposition and inversion.</p>
+<p>Theoretical utility (Forte Part 1 §§1.11–1.12): quantifies how many pitch
+classes remain fixed (invariant) under the <em>best</em> non-trivial T_n and I T_n.</p>
+<dl class="simple">
+<dt>Returns a dict with keys:</dt><dd><ul class="simple">
+<li><p>max_T_invariance, max_T_invariance_n</p></li>
+<li><p>max_I_invariance, max_I_invariance_n</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.multiply">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">multiply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FrozenSet</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#multiply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.multiply" title="Link to this definition"></a></dt>
+<dd><p>Multiply all pitch classes by n (mod 12).</p>
+<p>The M_n transformation multiplies each pitch class by n modulo 12.
+This is useful for extended transformations like T5M7 (transpose 5, multiply by 7).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multiply</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">})</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">multiply</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">})</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.pc_combinations">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">pc_combinations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9,</span> <span class="pre">10,</span> <span class="pre">11)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">FrozenSet</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#pc_combinations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.pc_combinations" title="Link to this definition"></a></dt>
+<dd><p>Enumerate all k-element pitch-class combinations from given pitch classes.</p>
+<p>This corresponds to the “dumb upper bound” level:
+choose k from 12, ignore order and octave.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> – number of pitch classes to choose (e.g. 3, 4, 5).</p></li>
+<li><p><strong>pcs</strong> – iterable of pitch classes to choose from (default 0..11).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of frozensets, each a k-element pc-set.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">pc_combinations</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">)))</span>
+<span class="go">220</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">frozenset</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">})</span> <span class="ow">in</span> <span class="n">pc_combinations</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.pc_set_convert">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">pc_set_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_repr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'raise'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#pc_set_convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.pc_set_convert" title="Link to this definition"></a></dt>
+<dd><p>Convert between pc-set representations.</p>
+<p>Supported reps: ‘int’, ‘tuple’, ‘frozenset’, ‘set’, ‘forte’, ‘prime’.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pc_set_convert</span><span class="p">(</span><span class="mi">145</span><span class="p">,</span> <span class="s1">&#39;tuple&#39;</span><span class="p">)</span>
+<span class="go">(0, 4, 7)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pc_set_convert</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="s1">&#39;prime&#39;</span><span class="p">)</span>
+<span class="go">(0, 3, 7)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.pcset_node_row">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">pcset_node_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#pcset_node_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.pcset_node_row" title="Link to this definition"></a></dt>
+<dd><p>Compute a single nodes_df-style row for a pc-set.</p>
+<p>This is a convenience helper mirroring the per-row logic of
+<a class="reference internal" href="#atonal.base.build_pcset_nodes_df" title="atonal.base.build_pcset_nodes_df"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_pcset_nodes_df()</span></code></a> without requiring pandas or enumerating all
+4096 sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pc_set</strong> – Either a 12-bit bitmap int (0..4095) or an iterable of pitch classes.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>dict</em> – A dict compatible with one row of <code class="docutils literal notranslate"><span class="pre">build_pcset_nodes_df()</span></code>.</p></li>
+<li><p><em>&gt;&gt;&gt; row = pcset_node_row((0, 2, 4, 5, 7, 9, 11))</em></p></li>
+<li><p><em>&gt;&gt;&gt; row[‘forte_name’]</em></p></li>
+<li><p><em>’7-35’</em></p></li>
+<li><p><em>&gt;&gt;&gt; row[‘id_’] == pcset_to_int((0, 2, 4, 5, 7, 9, 11))</em></p></li>
+<li><p><em>True</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.pcset_to_int">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">pcset_to_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#pcset_to_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.pcset_to_int" title="Link to this definition"></a></dt>
+<dd><p>Convert a pc iterable to a 12-bit bitmap int.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pcset_to_int</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">145</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.prime_form">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">prime_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#prime_form"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.prime_form" title="Link to this definition"></a></dt>
+<dd><p>Compute the prime form under T/I equivalence.</p>
+<p>Uses best normal order for the set and its inversion, transposes each to 0,
+and returns the lexicographically smaller.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prime_form</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">(0, 3, 7)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prime_form</span><span class="p">(())</span>
+<span class="go">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.shared_pcs">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">shared_pcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#shared_pcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.shared_pcs" title="Link to this definition"></a></dt>
+<dd><p>Number of shared pitch classes between two voicings.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">shared_pcs</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.transitive_reduction_links">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">transitive_reduction_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adjacency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_dag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#transitive_reduction_links"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.transitive_reduction_links" title="Link to this definition"></a></dt>
+<dd><p>Compute a transitive reduction of a directed graph given as adjacency lists.</p>
+<p>This removes an edge $u to v$ if there exists an alternate path from $u$ to
+$v$ of length $ge 2$.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>For DAGs, the transitive reduction is unique.</p></li>
+<li><p>For graphs with cycles, transitive reduction is not unique; by default
+this function refuses cyclic graphs.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adjacency</strong> – adjacency lists indexed by node index.</p></li>
+<li><p><strong>require_dag</strong> – if True, raise ValueError when cycles are detected.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new adjacency list with transitive edges removed.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adj</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[]]</span>  <span class="c1"># 0-&gt;1-&gt;2 and 0-&gt;2 (transitive)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transitive_reduction_links</span><span class="p">(</span><span class="n">adj</span><span class="p">)</span>
+<span class="go">[[1], [2], []]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.transpose">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">transpose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FrozenSet</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#transpose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.transpose" title="Link to this definition"></a></dt>
+<dd><p>Transpose a pc-set by <cite>interval</cite> modulo 12.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transpose</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">frozenset</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.validate_prime_forms">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">validate_prime_forms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#validate_prime_forms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.validate_prime_forms" title="Link to this definition"></a></dt>
+<dd><p>Compare atonal prime_form() against Forte canonical forms.</p>
+<p>This validation function checks that the prime form computation in this
+module matches the canonical Forte prime forms for all 208 set classes
+(cardinality 3-9).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes_df</strong> – Optional pre-built nodes DataFrame. If None, builds it.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None if all prime forms match, otherwise a DataFrame of discrepancies.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">validate_prime_forms</span><span class="p">()</span>  
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.voice_leading_distance">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">voice_leading_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#voice_leading_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.voice_leading_distance" title="Link to this definition"></a></dt>
+<dd><p>A dumb voice-leading distance: compare two voicings of (possibly) the same
+length, and sum absolute differences between <em>best-matched</em> notes.</p>
+<p>For simplicity, if lengths differ, we match up to the min length.</p>
+<p>This is <em>not</em> Tymoczko’s metric, but good enough for building edges.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">voice_leading_distance</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="atonal.base.z_correspondent_prime_form">
+<span class="sig-prename descclassname"><span class="pre">atonal.base.</span></span><span class="sig-name descname"><span class="pre">z_correspondent_prime_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/atonal/base.html#z_correspondent_prime_form"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#atonal.base.z_correspondent_prime_form" title="Link to this definition"></a></dt>
+<dd><p>Return the Z-correspondent prime form (if any).</p>
+<p>Z-related pairs share the same interval vector but are not T/I-equivalent.
+(Forte Part 1 §1.9)</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../index.html" class="btn btn-neutral float-left" title="Welcome to atonal’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tests/test_chordspace.html" class="btn btn-neutral float-right" title="atonal.tests.test_chordspace" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

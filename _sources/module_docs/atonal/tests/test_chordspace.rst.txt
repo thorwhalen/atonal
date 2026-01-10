@@ -1,0 +1,4 @@
+atonal.tests.test_chordspace
+============================
+.. automodule:: atonal.tests.test_chordspace
+   :members:
