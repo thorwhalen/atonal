@@ -1745,7 +1745,7 @@ def _generate_ids(voicings: List[Tuple[int, ...]], index_by: str) -> List:
         return [repr(v) for v in voicings]
     else:
         raise ValueError(
-            f"Unknown index_by mode: {index_by}. " "Must be 'int', 'hash', or 'repr'."
+            f"Unknown index_by mode: {index_by}. Must be 'int', 'hash', or 'repr'."
         )
 
 

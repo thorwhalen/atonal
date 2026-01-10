@@ -51,7 +51,9 @@ print(f"   ✓ PASS" if result == True else f"   ✗ FAIL")
 
 # Test get_k_complex_size() - just make sure it runs
 print("\n3. Testing get_k_complex_size() function:")
-print("   NOTE: This is a computationally expensive function, testing with small set...")
+print(
+    "   NOTE: This is a computationally expensive function, testing with small set..."
+)
 result = get_k_complex_size((0, 6))
 print(f"   get_k_complex_size((0, 6)) = {result}")
 print(f"   ✓ Function executes successfully")
