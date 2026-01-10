@@ -12,8 +12,8 @@ The core abstraction is a **pitch class**: pitches modulo 12, typically labeled
 `0..11` (0=C, 1=C♯, …, 11=B). A **pitch‑class set** (pc‑set) is an **unordered**
 collection of pitch classes, ignoring octave and enharmonic spelling.
 
-This is the same abstraction pipeline described in
-`misc/docs/A mathematics of musical harmony.md`:
+This is the same abstraction pipeline described in 
+[A mathematics of musical harmony](https://github.com/thorwhalen/atonal/blob/main/misc/docs/A%20mathematics%20of%20musical%20harmony.md):
 
 - move from sound → pitch,
 - discretize to 12‑TET,

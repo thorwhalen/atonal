@@ -595,9 +595,7 @@ def z_correspondent_prime_form(pf: Tuple[int, ...]) -> Optional[Tuple[int, ...]]
     return min(candidates) if candidates else None
 
 
-def contains_abstract_subset(
-    superset: Iterable[int], subset: Iterable[int]
-) -> bool:
+def contains_abstract_subset(superset: Iterable[int], subset: Iterable[int]) -> bool:
     """Check if subset is contained in superset under some T_n or IT_n.
 
     This checks whether the subset can be found within the superset under any
@@ -606,7 +604,7 @@ def contains_abstract_subset(
 
     >>> contains_abstract_subset((0, 4, 7), (0, 3))  # minor 3rd in major triad
     True
-    >>> contains_abstract_subset((0, 4, 7), (0, 5))  # perfect 4th NOT in major triad
+    >>> contains_abstract_subset((0, 4, 7), (0, 2))  # major 2nd NOT in major triad
     False
     >>> contains_abstract_subset((0, 2, 4, 5, 7, 9, 11), (0, 4, 7))  # major triad in major scale
     True
@@ -731,9 +729,7 @@ def validate_prime_forms(nodes_df: Optional["Any"] = None) -> Optional["Any"]:
     Returns:
         None if all prime forms match, otherwise a DataFrame of discrepancies.
 
-    >>> result = validate_prime_forms()  # doctest: +SKIP
-    >>> result is None  # Should be True if all match
-    True
+    >>> validate_prime_forms()  # doctest: +SKIP
     """
     import pandas as pd
 
